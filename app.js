@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 const path = require("path")
+const morgan = require("morgan")
 const mongoose = require('mongoose');
 const methodOverride = require("method-override")
 const Campground = require('./models/compground')
+const ejsMate = require("ejs-mate")
 
+app.engine('ejs', ejsMate)
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", 'ejs')
 
@@ -69,4 +72,8 @@ app.delete('/campgrounds/:id', async (req, res) => {
     await Campground.findByIdAndDelete(id)
     res.redirect('/campgrounds')
 
+})
+
+app.use((req,res) => {
+    res.status(404).send("Not Found")
 })
