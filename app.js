@@ -33,7 +33,7 @@ db.once("open", () => {
 })
 
 const validateCampground = (req, res, next) => {
-    
+    //TODO: check y undefined
     const { error } = camgroundSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
@@ -42,6 +42,7 @@ const validateCampground = (req, res, next) => {
     else{
         next();
     }
+
 
 }
 
@@ -75,7 +76,13 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     res.render("campgrounds/edit.ejs", { camp })
 }));
 
-app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
+app.put('/campgrounds/:id', catchAsync(async (req, res) => {
+    console.log("in put");
+    console.log(req)
+
+    const currCamp = await Campground.findById(req.params.id);
+    console.log(currCamp)
+
     const camp = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
     res.redirect(`/campgrounds/${camp._id}`);
 }))

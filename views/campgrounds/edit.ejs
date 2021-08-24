@@ -52,10 +52,6 @@
             </div>
             <div class="mb-3">
                 <img src="<%=camp.image %>" class="img-thumbnail" alt="">
-                <div class="form-check-inline">
-                    <input type="checkbox" id="image-1" name="deleteImages[]" value="<%=camp.image%>">
-                </div>
-                <label for="image-1">Delete?</label>
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update Campground</button>
@@ -64,7 +60,6 @@
         <a href="/campgrounds/<%= camp._id%>">Back To Campground</a>
     </div>
 </div>
-
 <script>
 
 (function () {
