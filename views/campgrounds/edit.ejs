@@ -22,7 +22,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="price">camp Price</label>
+                <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
                     <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
@@ -51,18 +51,39 @@
                 </div>
             </div>
             <div class="mb-3">
-
                 <img src="<%=camp.image %>" class="img-thumbnail" alt="">
                 <div class="form-check-inline">
-                    <input type="checkbox" id="image1" name="deleteImages[]" value="<%=camp.image%>">
+                    <input type="checkbox" id="image-1" name="deleteImages[]" value="<%=camp.image%>">
                 </div>
-                <label for="image1">Delete?</label>
-
+                <label for="image-1">Delete?</label>
             </div>
             <div class="mb-3">
-                <button class="btn btn-info">Update campground</button>
+                <button class="btn btn-info">Update Campground</button>
             </div>
         </form>
-        <a href="/campgrounds/<%= camp._id%>">Back To campground</a>
+        <a href="/campgrounds/<%= camp._id%>">Back To Campground</a>
     </div>
 </div>
+
+<script>
+
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.validated-form')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
