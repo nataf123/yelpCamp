@@ -2,12 +2,11 @@
 <div class="row">
     <h1 class="text-center">Edit Campground</h1>
     <div class="col-md-6 offset-md-3">
-        <form action="/campgrounds/<%=camp._id%>?_method=PUT" method="POST" novalidate class="validated-form"
-            enctype="multipart/form-data">
+        <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="campground[title]"
-                    value="<%=camp.title %>" required>
+                    value="<%=campground.title %>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -15,7 +14,7 @@
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
                 <input class="form-control" type="text" id="location" name="campground[location]"
-                    value="<%=camp.location %>" required>
+                    value="<%=campground.location %>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -26,7 +25,7 @@
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
                     <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                        aria-describedby="price-label" name="campground[price]" value="<%=camp.price %>"
+                        aria-describedby="price-label" name="campground[price]" value="<%=campground.price %>"
                         required>\<div class="valid-feedback">
                         Looks good!
                     </div>
@@ -36,7 +35,7 @@
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" type="text" id="description" name="campground[description]"
-                    required><%= camp.description%></textarea>
+                    required><%= campground.description%></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -51,13 +50,13 @@
                 </div>
             </div>
             <div class="mb-3">
-                <img src="<%=camp.image %>" class="img-thumbnail" alt="">
+                <img src="<%=campground.image %>" class="img-thumbnail" alt="">
             </div>
             <div class="mb-3">
                 <button class="btn btn-info">Update Campground</button>
             </div>
         </form>
-        <a href="/campgrounds/<%= camp._id%>">Back To Campground</a>
+        <a href="/campgrounds/<%= campground._id%>">Back To Campground</a>
     </div>
 </div>
 <script>

@@ -7,7 +7,7 @@ const methodOverride = require("method-override")
 const Campground = require('./models/compground')
 const catchAsync = require("./utils/catchAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
-const {camgroundSchema} = require("./schemas.js")
+const {campgroundSchema} = require("./schemas.js")
 
 const ejsMate = require("ejs-mate");
 const Joi = require("joi");
@@ -33,8 +33,7 @@ db.once("open", () => {
 })
 
 const validateCampground = (req, res, next) => {
-    //TODO: check y undefined
-    const { error } = camgroundSchema.validate(req.body);
+    const { error } = campgroundSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -51,8 +50,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/campgrounds', catchAsync(async (req, res) => {
-    const camps = await Campground.find()
-    res.render("campgrounds/index.ejs", { camps })
+    const campgrounds = await Campground.find()
+    res.render("campgrounds/index.ejs", { campgrounds })
 }));
 
 app.get('/campgrounds/new', (req, res) => {
@@ -61,28 +60,25 @@ app.get('/campgrounds/new', (req, res) => {
 });
 
 app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) => {
+    console.log("Body:", req.body)
     const camp = new Campground(req.body.campground)
     await camp.save();
     res.redirect(`/campgrounds/${camp._id}`)
 }))
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id)
-    res.render("campgrounds/show.ejs", { camp })
+    const campground = await Campground.findById(req.params.id)
+    res.render("campgrounds/show.ejs", { campground })
 }));
 
 app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id)
-    res.render("campgrounds/edit.ejs", { camp })
+    const campground = await Campground.findById(req.params.id)
+    res.render("campgrounds/edit.ejs", { campground })
 }));
 
 app.put('/campgrounds/:id', catchAsync(async (req, res) => {
-    console.log("in put");
-    console.log(req)
-
+    console.log("Body:", req.body)
     const currCamp = await Campground.findById(req.params.id);
-    console.log(currCamp)
-
     const camp = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
     res.redirect(`/campgrounds/${camp._id}`);
 }))
